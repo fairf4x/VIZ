@@ -1,0 +1,179 @@
+<ui version="4.0" >
+ <class>PredicateInfoAction</class>
+ <widget class="QWidget" name="PredicateInfoAction" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>318</width>
+    <height>428</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_2" >
+   <item>
+    <widget class="QScrollArea" name="scrollArea" >
+     <property name="widgetResizable" >
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents" >
+      <property name="geometry" >
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>296</width>
+        <height>406</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2" >
+       <item>
+        <widget class="QGroupBox" name="nameGroupBox" >
+         <property name="title" >
+          <string>Predicate name</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout" >
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <property name="topMargin" >
+           <number>0</number>
+          </property>
+          <property name="bottomMargin" >
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="predicateName" >
+            <property name="font" >
+             <font>
+              <family>Sans Serif</family>
+              <pointsize>11</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text" >
+             <string>TextLabel</string>
+            </property>
+            <property name="alignment" >
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="textInteractionFlags" >
+             <set>Qt::NoTextInteraction</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="setGroupBox" >
+         <property name="title" >
+          <string>Predicate set</string>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout" >
+          <item>
+           <widget class="QCheckBox" name="precondCheck" >
+            <property name="text" >
+             <string>Precond</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="effectPosCheck" >
+            <property name="text" >
+             <string>Effect+</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="effectNegCheck" >
+            <property name="text" >
+             <string>Effect-</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="argumentsGroupBox" >
+         <property name="sizePolicy" >
+          <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="sizeIncrement" >
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="title" >
+          <string>Arguments</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout" >
+          <item row="0" column="0" >
+           <spacer name="horizontalSpacer" >
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0" >
+             <size>
+              <width>91</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="1" >
+           <widget class="QToolButton" name="moveDown" >
+            <property name="text" >
+             <string>...</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="ToolWidgetResource.qrc" >
+              <normaloff>:/images/icons/arrowDown.xpm</normaloff>:/images/icons/arrowDown.xpm</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2" >
+           <widget class="QToolButton" name="moveUp" >
+            <property name="text" >
+             <string>...</string>
+            </property>
+            <property name="icon" >
+             <iconset resource="ToolWidgetResource.qrc" >
+              <normaloff>:/images/icons/arrowUp.xpm</normaloff>:/images/icons/arrowUp.xpm</iconset>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="3" >
+           <widget class="QTableWidget" name="argumentsTable" >
+            <property name="horizontalScrollBarPolicy" >
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+            <property name="editTriggers" >
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="selectionMode" >
+             <enum>QAbstractItemView::SingleSelection</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="ToolWidgetResource.qrc" />
+ </resources>
+ <connections/>
+</ui>

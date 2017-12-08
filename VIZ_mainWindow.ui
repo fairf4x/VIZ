@@ -1,0 +1,654 @@
+<ui version="4.0" >
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize" >
+   <size>
+    <width>600</width>
+    <height>450</height>
+   </size>
+  </property>
+  <property name="maximumSize" >
+   <size>
+    <width>1024</width>
+    <height>748</height>
+   </size>
+  </property>
+  <property name="windowTitle" >
+   <string>VIZ</string>
+  </property>
+  <property name="dockOptions" >
+   <set>QMainWindow::AllowNestedDocks|QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
+  </property>
+  <property name="unifiedTitleAndToolBarOnMac" >
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <property name="sizePolicy" >
+    <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize" >
+    <size>
+     <width>500</width>
+     <height>300</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_2" >
+    <item row="0" column="0" >
+     <widget class="QTabWidget" name="tabWidget" >
+      <property name="enabled" >
+       <bool>true</bool>
+      </property>
+      <property name="minimumSize" >
+       <size>
+        <width>400</width>
+        <height>200</height>
+       </size>
+      </property>
+      <property name="currentIndex" >
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="definitionTab" >
+       <attribute name="title" >
+        <string>Language</string>
+       </attribute>
+       <attribute name="toolTip" >
+        <string>Diagram used for language definition</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout" >
+        <item row="0" column="0" >
+         <widget class="DefinitionEdit" name="definitionEdit" />
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="actionTab" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <attribute name="title" >
+        <string>Operators</string>
+       </attribute>
+       <attribute name="toolTip" >
+        <string>Diagram used for definition of operators</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_4" >
+        <item>
+         <widget class="QComboBox" name="actionSelector" >
+          <property name="insertPolicy" >
+           <enum>QComboBox::InsertAfterCurrent</enum>
+          </property>
+          <property name="frame" >
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="ActionEdit" name="actionEdit" />
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="taskTab" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <attribute name="title" >
+        <string>Problems</string>
+       </attribute>
+       <attribute name="toolTip" >
+        <string>Diagram used for problem definition</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3" >
+        <item row="0" column="0" >
+         <widget class="QComboBox" name="taskSelector" />
+        </item>
+        <item row="0" column="1" >
+         <widget class="QGroupBox" name="taskState" >
+          <property name="title" >
+           <string>Visible state</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4" >
+           <item row="0" column="0" >
+            <widget class="QCheckBox" name="initCheckBox" >
+             <property name="text" >
+              <string>Init</string>
+             </property>
+             <property name="checked" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" >
+            <widget class="QCheckBox" name="goalCheckBox" >
+             <property name="text" >
+              <string>Goal</string>
+             </property>
+             <property name="checked" >
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2" >
+         <widget class="TaskEdit" name="taskEdit" />
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile" >
+    <property name="title" >
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="menuExport_PDDL" >
+     <property name="title" >
+      <string>Export PDDL</string>
+     </property>
+     <addaction name="actionExportDomain" />
+     <addaction name="actionExportProblems" />
+    </widget>
+    <addaction name="actionNew" />
+    <addaction name="actionOpen" />
+    <addaction name="actionSave" />
+    <addaction name="separator" />
+    <addaction name="actionProperties" />
+    <addaction name="menuExport_PDDL" />
+    <addaction name="separator" />
+    <addaction name="actionExit" />
+   </widget>
+   <widget class="QMenu" name="menuTools" >
+    <property name="title" >
+     <string>Tools</string>
+    </property>
+    <addaction name="actionClearLog" />
+    <addaction name="actionDomainSummary" />
+    <addaction name="separator" />
+   </widget>
+   <addaction name="menuFile" />
+   <addaction name="menuTools" />
+  </widget>
+  <widget class="QToolBar" name="toolBar" >
+   <property name="windowTitle" >
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAddEllipseNode" />
+   <addaction name="actionAddRectNode" />
+   <addaction name="actionAddEdge" />
+   <addaction name="actionDelete" />
+   <addaction name="separator" />
+   <addaction name="createAction" />
+   <addaction name="deleteAction" />
+   <addaction name="separator" />
+   <addaction name="createProblem" />
+   <addaction name="deleteProblem" />
+   <addaction name="separator" />
+   <addaction name="actionCheckDiagram" />
+   <addaction name="actionSavePNG" />
+  </widget>
+  <widget class="QDockWidget" name="classDock" >
+   <property name="enabled" >
+    <bool>true</bool>
+   </property>
+   <property name="sizePolicy" >
+    <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize" >
+    <size>
+     <width>93</width>
+     <height>116</height>
+    </size>
+   </property>
+   <property name="floating" >
+    <bool>false</bool>
+   </property>
+   <property name="features" >
+    <set>QDockWidget::AllDockWidgetFeatures</set>
+   </property>
+   <property name="allowedAreas" >
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle" >
+    <string>Class tree</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="classDockCont" >
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
+      <widget class="QTreeView" name="classTreeView" >
+       <property name="editTriggers" >
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="propertyEditorDock" >
+   <property name="sizePolicy" >
+    <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize" >
+    <size>
+     <width>155</width>
+     <height>116</height>
+    </size>
+   </property>
+   <property name="floating" >
+    <bool>false</bool>
+   </property>
+   <property name="allowedAreas" >
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle" >
+    <string>Property editor</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="propertyDockCont" >
+    <property name="sizePolicy" >
+     <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2" />
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusBar" />
+  <widget class="QDockWidget" name="logDock" >
+   <property name="sizePolicy" >
+    <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize" >
+    <size>
+     <width>93</width>
+     <height>116</height>
+    </size>
+   </property>
+   <property name="allowedAreas" >
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle" >
+    <string>Program log</string>
+   </property>
+   <attribute name="dockWidgetArea" >
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents" >
+    <layout class="QVBoxLayout" name="verticalLayout" >
+     <item>
+      <widget class="QTextEdit" name="logTextEdit" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="baseSize" >
+        <size>
+         <width>846</width>
+         <height>50</height>
+        </size>
+       </property>
+       <property name="undoRedoEnabled" >
+        <bool>false</bool>
+       </property>
+       <property name="textInteractionFlags" >
+        <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="actionNew" >
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/new.png</normaloff>:/images/icons/new.png</iconset>
+   </property>
+   <property name="text" >
+    <string>New</string>
+   </property>
+   <property name="statusTip" >
+    <string>Start editing new domain from scratch</string>
+   </property>
+  </action>
+  <action name="actionOpen" >
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/open.png</normaloff>:/images/icons/open.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Open</string>
+   </property>
+   <property name="statusTip" >
+    <string>Load previously saved domain file</string>
+   </property>
+  </action>
+  <action name="actionSave" >
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/save.png</normaloff>:/images/icons/save.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Save</string>
+   </property>
+   <property name="statusTip" >
+    <string>Save current domain in .xml file</string>
+   </property>
+  </action>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>Exit</string>
+   </property>
+   <property name="statusTip" >
+    <string>Leave program</string>
+   </property>
+  </action>
+  <action name="actionAddEdge" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/addEdge.xpm</normaloff>:/images/icons/addEdge.xpm</iconset>
+   </property>
+   <property name="toolTip" >
+    <string>Add edge</string>
+   </property>
+   <property name="statusTip" >
+    <string>Switch edge insert mode</string>
+   </property>
+  </action>
+  <action name="actionDelete" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/delete.xpm</normaloff>:/images/icons/delete.xpm</iconset>
+   </property>
+   <property name="toolTip" >
+    <string>Delete item</string>
+   </property>
+   <property name="statusTip" >
+    <string>Switch delete mode</string>
+   </property>
+  </action>
+  <action name="createAction" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/createAction.xpm</normaloff>:/images/icons/createAction.xpm</iconset>
+   </property>
+   <property name="toolTip" >
+    <string>Define new operator</string>
+   </property>
+   <property name="statusTip" >
+    <string>Start definition of new action</string>
+   </property>
+  </action>
+  <action name="deleteAction" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/deleteAction.xpm</normaloff>:/images/icons/deleteAction.xpm</iconset>
+   </property>
+   <property name="toolTip" >
+    <string>Delete selected operator</string>
+   </property>
+   <property name="statusTip" >
+    <string>Delete currently selected action</string>
+   </property>
+  </action>
+  <action name="createProblem" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/createProblem.xpm</normaloff>:/images/icons/createProblem.xpm</iconset>
+   </property>
+   <property name="toolTip" >
+    <string>Define new problem</string>
+   </property>
+   <property name="statusTip" >
+    <string>Start definition of new problem</string>
+   </property>
+  </action>
+  <action name="deleteProblem" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/deleteProblem.xpm</normaloff>:/images/icons/deleteProblem.xpm</iconset>
+   </property>
+   <property name="toolTip" >
+    <string>Delete selected problem</string>
+   </property>
+   <property name="statusTip" >
+    <string>Delete currently selected problem</string>
+   </property>
+  </action>
+  <action name="actionAddRectNode" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>false</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/addRectNode.xpm</normaloff>:/images/icons/addRectNode.xpm</iconset>
+   </property>
+   <property name="toolTip" >
+    <string>Add rectangular node</string>
+   </property>
+   <property name="statusTip" >
+    <string>Switch class/variable/object insert mode</string>
+   </property>
+   <property name="shortcutContext" >
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+  </action>
+  <action name="actionAddEllipseNode" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/addEllipseNode.xpm</normaloff>:/images/icons/addEllipseNode.xpm</iconset>
+   </property>
+   <property name="toolTip" >
+    <string>Add ellipse node</string>
+   </property>
+   <property name="statusTip" >
+    <string>Switch predicate insert mode</string>
+   </property>
+  </action>
+  <action name="actionPrint" >
+   <property name="enabled" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>print domainData</string>
+   </property>
+  </action>
+  <action name="actionPDef" >
+   <property name="text" >
+    <string>print definitionDocument</string>
+   </property>
+  </action>
+  <action name="actionPOpe" >
+   <property name="text" >
+    <string>print operatorsDocument</string>
+   </property>
+  </action>
+  <action name="actionPPro" >
+   <property name="text" >
+    <string>print problemsDocument</string>
+   </property>
+  </action>
+  <action name="actionSavePNG" >
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/savePNG.xpm</normaloff>:/images/icons/savePNG.xpm</iconset>
+   </property>
+   <property name="toolTip" >
+    <string>Take diagram screenshot</string>
+   </property>
+   <property name="statusTip" >
+    <string>Save current diagram as .png image</string>
+   </property>
+  </action>
+  <action name="actionProperties" >
+   <property name="text" >
+    <string>Properties</string>
+   </property>
+  </action>
+  <action name="actionExportDomain" >
+   <property name="text" >
+    <string>Export domain</string>
+   </property>
+  </action>
+  <action name="actionExportProblems" >
+   <property name="text" >
+    <string>Export problems</string>
+   </property>
+  </action>
+  <action name="actionCheckDiagram" >
+   <property name="icon" >
+    <iconset resource="VIZ_resource.qrc" >
+     <normaloff>:/images/icons/checkDiagram.xpm</normaloff>:/images/icons/checkDiagram.xpm</iconset>
+   </property>
+   <property name="text" >
+    <string/>
+   </property>
+   <property name="iconText" >
+    <string/>
+   </property>
+   <property name="toolTip" >
+    <string>Check diagram</string>
+   </property>
+   <property name="statusTip" >
+    <string>Check diagram sanity</string>
+   </property>
+  </action>
+  <action name="actionClearLog" >
+   <property name="text" >
+    <string>Clear log</string>
+   </property>
+   <property name="toolTip" >
+    <string>Clear log</string>
+   </property>
+   <property name="statusTip" >
+    <string>Clear program log</string>
+   </property>
+  </action>
+  <action name="actionDebugLog" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Debug log</string>
+   </property>
+  </action>
+  <action name="actionDomainSummary" >
+   <property name="text" >
+    <string>Domain summary</string>
+   </property>
+   <property name="iconText" >
+    <string>Domain summary</string>
+   </property>
+   <property name="toolTip" >
+    <string>Domain summary</string>
+   </property>
+   <property name="statusTip" >
+    <string>Print report to program log</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DefinitionEdit</class>
+   <extends>QGraphicsView</extends>
+   <header>DefinitionEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ActionEdit</class>
+   <extends>QGraphicsView</extends>
+   <header>ActionEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TaskEdit</class>
+   <extends>QGraphicsView</extends>
+   <header>TaskEdit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="VIZ_resource.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>selected(QString)</signal>
+   <receiver>statusBar</receiver>
+   <slot>showMessage(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>205</x>
+     <y>85</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>103</x>
+     <y>589</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
