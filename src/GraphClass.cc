@@ -101,7 +101,7 @@ int GraphClass::nodeParentID(int nodeID) const
 
 	/* do vektoru res ulozi id vsech uzlu ze kterych je vertID dosazitelny v jednom kroku
 	 * + sebe sama na prvni pozici */
-	igraph_neighborhood(&graph, &res,igraph_vss_1(vertID), 1,IGRAPH_IN,0);
+	igraph_neighborhood(&graph, &res,igraph_vss_1(vertID), 1,IGRAPH_IN);
 
 	/* z vysledku vezmi prvni ukazatel na vektor "sousedu" */
 	igraph_vector_t * parentVect = (igraph_vector_t*) igraph_vector_ptr_e(&res,0);
