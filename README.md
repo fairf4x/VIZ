@@ -1,5 +1,16 @@
 # VIZ
-Graphical tool for modeling PDDL domains. 
+Graphical tool for modeling PDDL domains. This work is originally a student project. Back in 2010 it was presented at KEPS conference ([pdf](https://github.com/fairf4x/VIZ/blob/master/doc/KEPS_2010.pdf)).
+Technical documentation is available at [wiki](https://github.com/fairf4x/VIZ/wiki/Technical-documentation).
+
+If you find it useful please cite:
+```
+@inproceedings{KEPS:2010,
+  title={Visual design of planning domains},
+  author={J. Vodr\'{a}\v{z}ka and L. Chrpa},
+  booktitle={KEPS 2010: Workshop on Knowledge Engineering for Planning and Scheduling},
+  year={2010}
+}
+```
 
 ## Compilation - Linux
 
