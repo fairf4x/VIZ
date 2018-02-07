@@ -26,7 +26,7 @@ class VIZ_mainWindow : public QMainWindow
 	public:
 		VIZ_mainWindow(QWidget * parent = 0);
 	
-		void appendToLog(bool prefixed, const QString & text, QColor textColor = Qt::black);
+        void appendToLog(const QString & text, QColor textColor = Qt::black);
 		void crash();
 	public slots:
 		/* Menu File */

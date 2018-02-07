@@ -16,7 +16,7 @@ Edgepoint::Edgepoint(const QPointF & pos, bool isStart, QGraphicsItem * parent)
 
 	setZValue(EDGEPOINT_Z_VALUE);
 	setFlags(ItemIsSelectable|ItemIsMovable);
-	setAcceptsHoverEvents(false);
+    parent->setAcceptHoverEvents(false);
 	setAcceptedMouseButtons(Qt::LeftButton);
 }
 

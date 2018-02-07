@@ -92,36 +92,31 @@ QString GraphClass::nodeLabel(int nodeID) const
 
 int GraphClass::nodeParentID(int nodeID) const
 {
+    /* get this node ID */
 	igraph_integer_t vertID = idMap.value(nodeID,INVALID_ID);
 
 	Q_ASSERT(vertID != INVALID_ID);
 
-	igraph_vector_ptr_t res;
-	igraph_vector_ptr_init(&res,1);
+    /* initialize vector of length 1 to store parents IDs*/
+    igraph_vector_t parentVect;
+    igraph_vector_init(&parentVect, 1);
 
-	/* do vektoru res ulozi id vsech uzlu ze kterych je vertID dosazitelny v jednom kroku
-	 * + sebe sama na prvni pozici */
-	igraph_neighborhood(&graph, &res,igraph_vss_1(vertID), 1,IGRAPH_IN);
+    /* store all vertices P such that there is a directed edge from P to vertID in parentVect */
+    igraph_neighbors(&graph, &parentVect,vertID,IGRAPH_IN);
 
-	/* z vysledku vezmi prvni ukazatel na vektor "sousedu" */
-	igraph_vector_t * parentVect = (igraph_vector_t*) igraph_vector_ptr_e(&res,0);
+    if ( igraph_vector_size(&parentVect) > 1)
+        qWarning() << "$GraphClass::nodeParentID : node has more than 1 parent";
 
-	/* ve vysledku je obsazen i uzel samotny - z toho duvodu 2 */	
-	if ( igraph_vector_size(parentVect) > 2)
-		qWarning() << "$GraphClass::nodeParentID : uzel ma vic nez 1 rodice";
-
-	if (igraph_vector_size(parentVect) < 2 )
+    if (igraph_vector_size(&parentVect) < 1 )
 	{
-		qDebug() << "$GraphClass::nodeParentID : uzel nema rodice";
-		igraph_vector_destroy(parentVect);
-		igraph_vector_ptr_destroy(&res);
+        qDebug() << "$GraphClass::nodeParentID : node has no parent";
+        igraph_vector_destroy(&parentVect);
 		return INVALID_ID;
 	}
 
-	/* z vektoru precti druhy prvek (na indexu 1) */
-	igraph_integer_t parentID = VECTOR(*parentVect)[1];
-	igraph_vector_destroy(parentVect);
-	igraph_vector_ptr_destroy(&res);
+    /* read node parent ID and cleanup */
+    igraph_integer_t parentID = VECTOR(parentVect)[0];
+    igraph_vector_destroy(&parentVect);
 	return idMap.key((int)parentID);
 }
 

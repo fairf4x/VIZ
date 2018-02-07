@@ -1,5 +1,8 @@
 #include "Node.h"
 #include "CustomEvents.h"
+#include <QGraphicsScene>
+#include <QApplication>
+#include <QGraphicsSceneMouseEvent>
 
 #define INVALID_NODE_ID (-1)
 
@@ -23,7 +26,6 @@ Node::Node(int nID, NodeShape nShape, QGraphicsScene * scene, QObject * host)
 
 	setZValue(NODE_Z_VALUE);
 	setFlags(ItemIsSelectable | ItemIsMovable);
-	setAcceptsHoverEvents(false);
 	setAcceptedMouseButtons(Qt::LeftButton|Qt::RightButton); 
 }
 

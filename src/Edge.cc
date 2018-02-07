@@ -2,6 +2,9 @@
 #include "Node.h"
 #include "CustomEvents.h"
 #include "Edgepoint.h"
+#include <QApplication>
+#include <QGraphicsScene>
+#include <QGraphicsSceneMouseEvent>
 #include <math.h>
 const qreal Pi = 3.14159;
 

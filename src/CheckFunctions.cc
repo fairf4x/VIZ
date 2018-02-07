@@ -603,7 +603,8 @@ bool CheckFn::nodeMatches(const QDomElement & probedNode, const NodeStructure & 
 	if ( !testVal.isNull() )	
 	{
 		QDomElement typeEl = probedNode.firstChildElement("type");
-		if ( (patternNodeType = detNodeType(typeEl)) != testVal.toChar().toAscii() )
+        patternNodeType = detNodeType(typeEl);
+        if ( patternNodeType != testVal.toChar().toLatin1() )
 			return false;
 	}
 

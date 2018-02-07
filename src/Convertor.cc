@@ -7,6 +7,7 @@
 #include <igraph.h>		/* definice IGRAPH_(UN)DIRECTED */
 #include <QWidget>
 #include <QObject>		/* funkce tr */
+#include <QMessageBox>
 
 #define OUTPUT_INDENT 4
 

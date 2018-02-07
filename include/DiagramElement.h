@@ -2,6 +2,7 @@
 #define DIAGRAMELEMENT_H
 
 #include <QtGui>
+#include <QGraphicsItem>
 
 class DiagramElement : public QGraphicsItem 
 {

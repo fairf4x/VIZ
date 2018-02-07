@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QByteArray>
 
 /* prefix debugovacich zprav pro programatora */
 #define PREFIX '$' 
@@ -6,38 +7,49 @@
 
 VIZ_mainWindow * msgCatcher;
 
-void msgHandler(QtMsgType type, const char * msg)
+void msgHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-	QString text(msg);
-	/* zpravy s prefixem nejsou pro uzivatele */	
-	bool prefixed = (text.at(0) == PREFIX);
-	if (prefixed)
-		text = text.remove(0,1);	/* odeber prvni znak */
+    QByteArray text = msg.toLocal8Bit();
 
-	switch (type)
-	{
-		case QtDebugMsg:
-			if (prefixed)
-				msgCatcher->appendToLog(prefixed,text, Qt::cyan);
-			else
-				msgCatcher->appendToLog(prefixed,text, Qt::green);
-		break;
-		case QtWarningMsg:
-			if (prefixed)
-				msgCatcher->appendToLog(prefixed,text, Qt::red);
-			else
-				msgCatcher->appendToLog(prefixed,text, Qt::blue);
-		break;
-		case QtCriticalMsg:
-			if (prefixed)
-				msgCatcher->appendToLog(prefixed,text, Qt::yellow);
-			else
-				msgCatcher->appendToLog(prefixed,text, Qt::darkYellow);
-		break;
-		case QtFatalMsg:
-			msgCatcher->appendToLog(false,text.prepend("FATAL "));
-			msgCatcher->crash();
-	}
+    /* prefixed messages are not supposed to be displayed in user output log */
+    bool prefixed = text.startsWith(PREFIX);
+
+    /* remove prefix */
+    if (prefixed)
+        text.remove(0,1);
+
+    switch (type) {
+        case QtDebugMsg:
+            if (prefixed)
+                fprintf(stderr, "Debug: %s (%s:%u, %s)\n", text.constData(), context.file, context.line, context.function);
+            else
+                msgCatcher->appendToLog(text, Qt::green);
+            break;
+        case QtInfoMsg:
+            if (prefixed)
+                fprintf(stderr, "Info: %s (%s:%u, %s)\n", text.constData(), context.file, context.line, context.function);
+            else
+                msgCatcher->appendToLog(text, Qt::blue);
+            break;
+        case QtWarningMsg:
+            if (prefixed)
+                fprintf(stderr, "Warning: %s (%s:%u, %s)\n", text.constData(), context.file, context.line, context.function);
+            else
+                msgCatcher->appendToLog(text, Qt::yellow);
+            break;
+        case QtCriticalMsg:
+            if (prefixed)
+                fprintf(stderr, "Critical: %s (%s:%u, %s)\n", text.constData(), context.file, context.line, context.function);
+            else
+                msgCatcher->appendToLog(text, Qt::red);
+            break;
+        case QtFatalMsg:
+            if (prefixed)
+                fprintf(stderr, "Fatal: %s (%s:%u, %s)\n", text.constData(), context.file, context.line, context.function);
+            else
+                msgCatcher->appendToLog(text, Qt::darkMagenta);
+            abort();
+    }
 }
 
 int main(int argc, char ** argv)
@@ -47,7 +59,7 @@ int main(int argc, char ** argv)
 
 	msgCatcher = &mainWindow;
 
-	qInstallMsgHandler(msgHandler);
+    qInstallMessageHandler(msgHandler);
 
 	mainWindow.show();
 	return app.exec();

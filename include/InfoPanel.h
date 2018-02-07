@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QtGui>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QMessageBox>
 #include <XMLHelpFunctions.h>
 #include "DataWidget.h"
 

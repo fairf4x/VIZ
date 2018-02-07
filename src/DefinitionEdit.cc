@@ -6,6 +6,8 @@
 #include "CheckFunctions.h"
 #include "InfoPanel.h"
 #include <QtDebug>
+#include <QInputDialog>
+#include <QLineEdit>
 #include <igraph.h> /* definice IGRAPH_(UN)DIRECTED */
 
 using namespace XMLh;

@@ -7,6 +7,7 @@
 
 #include <QtXml>
 #include <QtGui>
+#include <QGraphicsView>
 
 #include "DiagramWidget.h"
 #include "DataWidget.h"

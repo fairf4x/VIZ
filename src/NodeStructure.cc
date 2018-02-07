@@ -11,7 +11,7 @@ NodeStructure::NodeStructure(const NodeStructure & original)
 
 Node::NodeShape NodeStructure::shape() const
 {
-	char type = content.value(nodeType).toChar().toAscii();
+    char type = content.value(nodeType).toChar().toLatin1();
 	switch(type)
 	{
 		case NST_CLASS:
@@ -27,7 +27,7 @@ Node::NodeShape NodeStructure::shape() const
 
 QColor NodeStructure::color() const
 {
-	char type = content.value(nodeType).toChar().toAscii();
+    char type = content.value(nodeType).toChar().toLatin1();
 	QVariant state;
 	switch(type)
 	{
@@ -69,7 +69,7 @@ void NodeStructure::setData(ContentType type, QVariant data)
 			qWarning() << "$NodeStructure::setData : invalid ID - conversion to int failed";
 	break;		
 	case nodeType:
-		typeChar = data.toChar().toAscii();
+        typeChar = data.toChar().toLatin1();
 		if ( !(typeChar == NST_CLASS) &&
 		     !(typeChar == NST_PREDICATE) &&
 		     !(typeChar == NST_VARIABLE) &&

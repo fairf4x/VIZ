@@ -13,6 +13,8 @@
 #include "EditWidget.h"		/* kvuli definici EditWidget::ChangeCode */
 #include "InfoPanel.h"
 #include <iostream>
+#include <QFileDialog>
+#include <QInputDialog>
 
 /* hlavickove soubory dialogu */
 #include "actions_variableDialog.h"
@@ -83,14 +85,10 @@ VIZ_mainWindow::VIZ_mainWindow(QWidget * parent): QMainWindow(parent)
 	nameChecker.setPattern(QString("^([a-z]|[A-Z])([a-z]|[A-Z]|[0-9]|[-_]){,%1}$").arg(MAX_NAME_LENGTH));
 }
 
-void VIZ_mainWindow::appendToLog(bool prefixed, const QString & text, QColor textColor)
+void VIZ_mainWindow::appendToLog(const QString & text, QColor textColor)
 {
 	ui.logTextEdit->setTextColor(textColor);
-
-	if ( !prefixed )
-	{
-		ui.logTextEdit->append(text);
-	}
+    ui.logTextEdit->append(text);
 }
 
 void VIZ_mainWindow::crash()

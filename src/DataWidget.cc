@@ -279,7 +279,7 @@ void DataWidget::addDataNode(const NodeStructure & node)
 	addChildElement(newChild,"label",node.readData(NodeStructure::nodeLabel).toString());
 
 	/* <type> */
-	char nodeType = node.readData(NodeStructure::nodeType).toChar().toAscii();
+    char nodeType = node.readData(NodeStructure::nodeType).toChar().toLatin1();
 	QStringList predSet;
 
 	QVariant taskState = node.readData(NodeStructure::nodeState);

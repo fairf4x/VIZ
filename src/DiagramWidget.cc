@@ -5,6 +5,8 @@
 #include "Node.h"
 #include "Edge.h"
 #include <QtDebug>
+#include <QApplication>
+#include <QGraphicsSceneMouseEvent>
 #include "CustomEvents.h"
 
 DiagramWidget::DiagramWidget(int width, int height, QWidget * parent)
@@ -73,7 +75,7 @@ void DiagramWidget::addNode(const NodeStructure & node)
 	qDebug() << "$DiagramWidget::addNode";
 	Node * NewNode = new Node(node.readData(NodeStructure::nodeID).toInt(), node.shape(),this,this->parent());
 
-	char nodeType = node.readData(NodeStructure::nodeType).toChar().toAscii();
+    char nodeType = node.readData(NodeStructure::nodeType).toChar().toLatin1();
 	int nodeID = node.readData(NodeStructure::nodeID).toInt();
 
 	dgwNodes.insert(nodeID,NewNode);
@@ -290,7 +292,7 @@ int DiagramWidget::newEdgeID()
 
 void DiagramWidget::leftClick(QPointF pos)
 {
-	if ( itemAt(pos) == 0)
+    if ( itemAt(pos,QTransform()) == 0)
 	{
 		DiagramEvent myEvent(DiagramLeftClick,newNodeID(),pos);
 		QApplication::sendEvent(this->parent(),&myEvent);
@@ -315,7 +317,7 @@ void DiagramWidget::leftClick(QPointF pos)
 
 void DiagramWidget::rightClick(QPointF pos)
 {
-	if ( itemAt(pos) == 0)
+    if ( itemAt(pos,QTransform()) == 0)
 	{
 		/* event neni programem vyuzivan */
 		DiagramEvent myEvent(DiagramRightClick,INVALID_ID,pos);
