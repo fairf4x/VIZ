@@ -17,10 +17,10 @@ If you find it useful please cite:
 ### Prerequisities
 It is possible to compile VIZ for linux platform with following libraries:
 
-1. development kit for Qt 5 (development libraries and qmake - Makefile generator for Qt)
+1. development kit for Qt 5 (development libraries and qmake - Makefile generator for Qt). You can check this by running ``qmake --version``. QT version can be set in current shell using the ``QT_SELECT`` environment variable (e.g. ``export QT_SELECT=qt5``).
 2. development libraries for the [igraph](http://igraph.org/c/) library
 
-You will also need some C++ compiler.
+You will also need some C++ compiler - reasonable recent ``gcc`` should do well (this howto was tested with version 5.4.0).
 
 Note:
 
@@ -28,7 +28,7 @@ When using Debian based distro, you can obtain all development libraries from re
 e.g.:
 
 ```
-$ apt-get install libigraph0-dev qtbase5-dev qt5-qmake
+$ apt-get install libigraph0-dev qtbase5-dev qt5-qmake build-essential
 ```
 
 ### Compilation process
@@ -45,10 +45,15 @@ this will create file ``VIZ.pro``
 ```
 TEMPLATE = app
 TARGET = VIZ
-DEPENDPATH += . forms include res src
-INCLUDEPATH += . include
+INCLUDEPATH += .
 ```
-Following lines are to be added (alter the path to igraph liubraries according to your system):
+
+You need to append  ``include`` to ``INCLUDEPATH``:
+```
+INCLUDEPATH += . include
+``` 
+
+Following lines are to be added (alter the path to igraph libraries according to your system):
 ```
 QT += xml widgets
 INCLUDEPATH += . /YOUR/IGRAPH/SOURCES/include/
