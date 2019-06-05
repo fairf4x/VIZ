@@ -50,6 +50,8 @@ class VIZ_mainWindow : public QMainWindow
 		void on_actionDelete_toggled(bool checked);
 		
 		void on_createAction_triggered();
+		// TODO:
+		// void on_cloneAction_triggered();
 		void on_deleteAction_triggered();
 		
 		void on_createProblem_triggered();

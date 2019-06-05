@@ -489,6 +489,9 @@ void VIZ_mainWindow::on_createAction_triggered()
 	domainChanged = true;
 }
 
+// TODO: klonovani akce
+// void VIZ_mainWindow::on_cloneAction_triggered()
+
 void VIZ_mainWindow::on_deleteAction_triggered()
 {
 	QDomElement operatorsElement = findDomainSubelement("operators");
