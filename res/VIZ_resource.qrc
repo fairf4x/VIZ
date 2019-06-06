@@ -1,5 +1,6 @@
 <RCC>
-  <qresource prefix="images" >
+  <qresource prefix="images">
+    <file>icons/cloneAction.xpm</file>
     <file>icons/checkDiagram.xpm</file>
     <file>icons/savePNG.xpm</file>
     <file>icons/open.png</file>
