@@ -452,7 +452,7 @@ void VIZ_mainWindow::on_createAction_triggered()
 		return;	
 	}
 
-	/* pokud je jmeno akce nalezeno mezi existujicimi */
+	/* check for name collision */
 	if ( ui.actionSelector->findText(newOperatorName) >= 0)
 	{
 		QMessageBox::warning(this,tr("VIZ"),tr("Operator name must be unique."));
@@ -489,8 +489,74 @@ void VIZ_mainWindow::on_createAction_triggered()
 	domainChanged = true;
 }
 
-// TODO: klonovani akce
-// void VIZ_mainWindow::on_cloneAction_triggered()
+void VIZ_mainWindow::on_cloneAction_triggered()
+{
+	/* get newOperatorName from user dialog and original operator name from currently selected operator */
+	bool ok;
+	QString newOperatorName = QInputDialog::getText(this, tr("Clone current operator"),
+			tr("Clone name:"), QLineEdit::Normal,
+			QString("clone_operator"), &ok);
+
+	QString origOperatorName = ui.actionSelector->currentText();
+
+
+	/* check for name collision */
+	if ( ui.actionSelector->findText(newOperatorName) >= 0)
+	{
+		QMessageBox::warning(this,tr("VIZ"),tr("Operator name must be unique."));
+		return;
+	}
+
+	
+	/* get root element for operator list */
+	QDomElement operatorsElement = findDomainSubelement("operators");
+	Q_ASSERT(!operatorsElement.isNull());
+
+	/* iterate over all actions to find original operator definition */
+	QDomElement origActionEl = operatorsElement.firstChildElement("action");
+	while ( !origActionEl.isNull() )
+	{
+		QString actionName = origActionEl.attribute("name");
+		if (actionName == origOperatorName)
+			break;
+	        	
+		origActionEl = origActionEl.nextSiblingElement("action");			
+	}
+
+        qDebug() << "Clonning operator: " << origOperatorName << " -> " << newOperatorName << "\n"; 		
+
+	/* create tag for the new operator */
+	QDomElement newActionElement = domainData.createElement("action");	
+	newActionElement.setAttribute("name",newOperatorName);
+
+	/* copy diagram data from original */
+	QDomElement origActionDiagram = origActionEl.firstChildElement("diagram");
+
+	newActionElement.appendChild(origActionDiagram);
+
+	/* add operator to XML document */
+	operatorsElement.appendChild(newActionElement);
+	
+	/* register operator
+	 * - operator is added to actionSelector
+	 * - subelement <diagram> is added (if missing) */
+	registerSubelement(newActionElement,ui.actionSelector);
+
+	/* set operator as selected */
+	int index = ui.actionSelector->findText(newOperatorName);	
+	
+	/* index > 0 
+	 * - index change triggers signal that executes 
+	 *   on_actionSelector_currentIndexChanged */
+	ui.actionSelector->setCurrentIndex(index);
+	
+	ui.actionTab->setEnabled(true);
+	ui.deleteAction->setEnabled(true);
+	ui.actionCheckDiagram->setEnabled(true);
+
+	domainChanged = true;
+}
+
 
 void VIZ_mainWindow::on_deleteAction_triggered()
 {
@@ -651,7 +717,7 @@ void VIZ_mainWindow::on_actionSavePNG_triggered()
 
 	QSizeF diagramSize(boundingRect.width()+2*IMAGE_MARGIN,boundingRect.height()+2*IMAGE_MARGIN);
 	QImage diagramImage(diagramSize.toSize(),QImage::Format_RGB32);
-	/* aby bila bila byla */
+	/* set white background for the diagram */
 	diagramImage.fill(qRgb(255,255,255));
 
 	QPainter diagramPainter(&diagramImage);
@@ -700,43 +766,43 @@ void VIZ_mainWindow::on_tabWidget_currentChanged(int index)
 	switch(index)
 	{
 		case TAB_INDEX_DEFINITION:
-			/* tlacitka */
+			/* enable buttons */
 			ui.createAction->setEnabled(false);
 			ui.deleteAction->setEnabled(false);
 			ui.createProblem->setEnabled(false);
 			ui.deleteProblem->setEnabled(false);
 
 			ui.actionCheckDiagram->setEnabled(true);
-			/* nastaveni pohledu */
+			/* set view */
 			centerContents(ui.definitionEdit);
 		break;
 		case TAB_INDEX_OPERATORS:
-			/* tlacitka */
+			/* enable buttons */
 			ui.createAction->setEnabled(true);
-			/* povoli mazani akci a kontrolovani jejich diagramu 
-			 * pouze kdyz nejake jsou */
+			/* enable clonning, deleting and diagram checking only if there are some actions defined */
+			ui.cloneAction->setEnabled(ui.actionSelector->count() > 0);
 			ui.deleteAction->setEnabled(ui.actionSelector->count() > 0);
 			ui.actionCheckDiagram->setEnabled(ui.actionSelector->count() > 0);
 
 			ui.createProblem->setEnabled(false);
 			ui.deleteProblem->setEnabled(false);
-			/* nastaveni pohledu */
+			/* set view */
 			centerContents(ui.actionEdit);
 		break;
 		case TAB_INDEX_PROBLEMS:
-			/* tlacitka */
+			/* buttons */
 			ui.createAction->setEnabled(false);
 			ui.deleteAction->setEnabled(false);
 			ui.createProblem->setEnabled(true);
 			
-			/* povolot mazani problemu a kontrolu diagramu pokud nejake jsou */
+			/* allow delete and diagram check only if there are some problems */
 			ui.deleteProblem->setEnabled(ui.taskSelector->count() > 0);
 			ui.actionCheckDiagram->setEnabled(ui.taskSelector->count() > 0);
-			/* nastaveni pohledu */
+			/* set view */
 			centerContents(ui.taskEdit);
 		break;
 		default:
-			/* neplatny index */
+			/* invalid index */
 			Q_ASSERT(false);
 	}
 	
