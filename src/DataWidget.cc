@@ -448,7 +448,7 @@ void DataWidget::changeNodePos(int id, const QPointF & vector)
 
 	Q_ASSERT(!position.isNull());
 
-	QPointF newPos = getPosValue(position) + vector;
+	//QPointF newPos = getPosValue(position) + vector;
 
 	addVector(position,vector);
 }
@@ -476,7 +476,7 @@ void DataWidget::changeEdgePos(int id, bool isStart,const QPointF & vector)
 
 	Q_ASSERT(!position.isNull());
 	
-	QPointF newPos = getPosValue(position) + vector;
+	//QPointF newPos = getPosValue(position) + vector;
 
 	addVector(position,vector);
 }
