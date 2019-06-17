@@ -768,6 +768,7 @@ void VIZ_mainWindow::on_tabWidget_currentChanged(int index)
 		case TAB_INDEX_DEFINITION:
 			/* enable buttons */
 			ui.createAction->setEnabled(false);
+			ui.cloneAction->setEnabled(false);
 			ui.deleteAction->setEnabled(false);
 			ui.createProblem->setEnabled(false);
 			ui.deleteProblem->setEnabled(false);
@@ -792,6 +793,7 @@ void VIZ_mainWindow::on_tabWidget_currentChanged(int index)
 		case TAB_INDEX_PROBLEMS:
 			/* buttons */
 			ui.createAction->setEnabled(false);
+			ui.cloneAction->setEnabled(false);
 			ui.deleteAction->setEnabled(false);
 			ui.createProblem->setEnabled(true);
 			
